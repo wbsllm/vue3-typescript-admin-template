@@ -27,7 +27,7 @@ const svgClass = computed(() => {
     return 'svg-icon'
   }
 })
-const iconName = computed(()=>`#icon-${iconClass}`)
+const iconName = computed(() => `#icon-${iconClass}`)
 </script>
 
 <style scoped>

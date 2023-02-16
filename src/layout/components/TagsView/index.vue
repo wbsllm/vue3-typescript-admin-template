@@ -81,8 +81,8 @@ const filterAffixTags = (routes: RouteConfig[], basePath = '/') => {
 }
 
 const initTags = () => {
-  // affixTags.value = filterAffixTags(routes.value)
-  for (const tag of affixTags.value) {
+  const affixTags = filterAffixTags(routes.value)
+  for (const tag of affixTags) {
     // Must have tag name
     if (tag?.name) {
       store.dispatch('tagsView/addVisitedView', tag)

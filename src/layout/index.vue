@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <div :class="classObj" class="app-wrapper">
     <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView: settings.tagsView }" class="main-container">
       <div :class="{ 'fixed-header': settings.fixedHeader }">
@@ -7,16 +7,26 @@
         <tags-view v-if="settings.tagsView" />
       </div>
       <app-main />
+      <right-panel v-if="settings.showSettings">
+        <setting />
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script setup lang="ts" name="Layout">
+import RightPanel from '@/components/RightPanel/index.vue'
 import { IRootState } from '@/store'
-import { AppMain, Navbar, Sidebar, TagsView } from './components'
+import { AppMain, Navbar, Sidebar, TagsView, Setting } from './components'
 import './mixins/ResizeHandler'
 const store = useStore<IRootState>()
-let { settings } = toRefs(store.state)
+let { app, settings } = toRefs(store.state)
+let classObj = computed(() => ({
+  hideSidebar: !app.value.sidebar.opened,
+  openSidebar: app.value.sidebar.opened,
+  withoutAnimation: app.value.sidebar.withoutAnimation,
+  mobile: app.value.device === 'mobile'
+}))
 </script>
 
 <style lang="scss" scoped>

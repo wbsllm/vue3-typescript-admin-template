@@ -59,7 +59,7 @@ export const constantRoutes: RouteConfig[] = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index.vue'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'Plus', affix: true }
+        meta: { title: 'Dashboard', icon: 'DataBoard', affix: true }
       }
     ]
   },

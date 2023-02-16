@@ -8,7 +8,7 @@ import store from './store'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login','/404','/dashboard','/test/a','/test/b']
+const whiteList = ['/login', '/404', '/dashboard', '/test/a', '/test/b']
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
@@ -38,8 +38,7 @@ router.beforeEach(async (to, from, next) => {
             'permission/generateRoutes',
             roles
           )) as RouteConfig[]
-          console.log(accessRoutes);
-          
+          console.log(accessRoutes)
 
           accessRoutes.forEach((route) => {
             router.addRoute(route)

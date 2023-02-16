@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import router, { resetRouter } from '@/router'
+import { resetRouter } from '@/router'
 import { Module } from 'vuex'
 import { IRootState } from '..'
 import { login, getInfo } from '@/api'
@@ -18,7 +18,8 @@ const store: Module<IUserState, IRootState> = {
     token: getToken() || '',
     username: '',
     name: '',
-    avatar: '',
+    avatar:
+      'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     roles: []
   },
   mutations: {

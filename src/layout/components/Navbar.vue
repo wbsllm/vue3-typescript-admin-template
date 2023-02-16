@@ -15,11 +15,11 @@
 
         <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
 
-        <!-- <screenfull id="screenfull" class="right-menu-item hover-effect" /> -->
+        <screen-full id="screenfull" class="right-menu-item hover-effect" />
 
         <!-- <el-tooltip content="Global Size" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip> -->
+            <size-select id="size-select" class="right-menu-item hover-effect" />
+          </el-tooltip> -->
       </template>
 
       <el-dropdown
@@ -31,7 +31,7 @@
             :src="user.avatar + '?imageView2/1/w/80/h/80'"
             class="user-avatar"
           />
-          <i class="el-icon-caret-bottom" />
+          <el-icon><CaretBottom /></el-icon>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -65,6 +65,7 @@
 
 <script setup lang="ts">
 import { IRootState } from '@/store'
+import ScreenFull from '@/components/Screenfull/index.vue'
 const store = useStore<IRootState>()
 let { app, user, tagsView } = toRefs(store.state)
 const toggleSideBar = () => {

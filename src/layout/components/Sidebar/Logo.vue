@@ -29,10 +29,10 @@ const { collapse } = toRefs(props)
 
 <style lang="scss" scoped>
 .sidebarLogoFade-enter-active {
-  transition: opacity 1.5s;
+  transition: all 1.5s;
 }
 
-.sidebarLogoFade-enter,
+.sidebarLogoFade-enter-from,
 .sidebarLogoFade-leave-to {
   opacity: 0;
 }

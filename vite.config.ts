@@ -38,7 +38,7 @@ export default defineConfig({
       dts: 'src/types/components.d.ts'
     }),
     VueSetupExtend(),
-    Icons(),
+    Icons()
   ],
   resolve: {
     alias: [

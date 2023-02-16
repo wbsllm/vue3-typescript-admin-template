@@ -2,7 +2,8 @@
   <div v-if="!item.hidden">
     <template
       v-if="
-        hasOneShowingChild(item.children, item) && onlyOneChild &&
+        hasOneShowingChild(item.children, item) &&
+        onlyOneChild &&
         (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
         !item.alwaysShow
       "

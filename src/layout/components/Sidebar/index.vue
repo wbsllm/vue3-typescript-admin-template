@@ -1,15 +1,15 @@
 <template>
-  <div :class="{ 'has-logo': showLogo }">
-    <logo v-if="showLogo" :collapse="isCollapse" />
+  <div :class="{ 'has-logo': true }">
+    <logo v-if="showLogo" :collapse="!isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
-        :collapse="isCollapse"
+        :collapse="!isCollapse"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
         :unique-opened="false"
         :active-text-color="variables.menuActiveText"
-        :collapse-transition="true"
+        :collapse-transition="false"
         mode="vertical"
       >
         <sidebar-item
@@ -31,7 +31,7 @@ import variables from '@/styles/variables.module.scss'
 const store = useStore<IRootState>()
 const route = useRoute()
 const { permission_routes, sidebar, sidebarLogo } = toRefs(store.getters)
-let showLogo = computed(() => sidebarLogo)
+let showLogo = computed(() => sidebarLogo.value)
 let isCollapse = computed(() => sidebar.value.opened)
 let activeMenu = computed(() => {
   const { meta, path } = route

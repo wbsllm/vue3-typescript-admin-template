@@ -21,12 +21,12 @@ const $_resizeHandler = () => {
   }
 }
 
-onBeforeMount(()=>{
-    window.addEventListener('resize', $_resizeHandler)
+onBeforeMount(() => {
+  window.addEventListener('resize', $_resizeHandler)
 })
 
-onBeforeUnmount(()=>{
-    window.removeEventListener('resize', $_resizeHandler)
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', $_resizeHandler)
 })
 
 onMounted(() => {

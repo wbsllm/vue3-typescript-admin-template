@@ -1,6 +1,5 @@
 <script lang="tsx">
-import { Component } from 'vue';
-
+import { Component } from 'vue'
 export default {
   name: 'MenuItem',
   functional: true,
@@ -16,12 +15,15 @@ export default {
   },
   render(context: any) {
     const { icon, title } = context
-    console.log(icon, title);
-    
+
     const vnodes = []
 
     if (icon) {
-      vnodes.push(<el-icon>{h(getCurrentInstance()?.appContext.components[icon] as Component)}</el-icon>)
+      vnodes.push(
+        <el-icon class="sub-el-icon">
+          {h(getCurrentInstance()?.appContext.components[icon] as Component)}
+        </el-icon>
+      )
     }
 
     if (title) {

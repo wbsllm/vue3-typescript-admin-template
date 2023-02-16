@@ -15,7 +15,7 @@ let left = ref(0)
 let scrollContainer = ref<ScrollbarInstance>()
 let emits = defineEmits<{ (e: 'scroll'): void }>()
 
-let scrollWrapper = computed(()=>scrollContainer.value?.wrapRef)
+let scrollWrapper = computed(() => scrollContainer.value?.wrapRef)
 const emitScroll = () => {
   emits('scroll')
 }
@@ -141,19 +141,19 @@ onUnmounted(() => {
 // }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .scroll-container {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
   width: 100%;
-  ::v-deep {
-    .el-scrollbar__bar {
-      bottom: 0px;
-    }
-    .el-scrollbar__wrap {
-      height: 49px;
-    }
+
+  .el-scrollbar__bar {
+    bottom: 0px;
+  }
+
+  .el-scrollbar__wrap {
+    height: 49px;
   }
 }
 </style>
