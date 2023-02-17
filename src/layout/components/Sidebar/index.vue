@@ -36,7 +36,7 @@ let isCollapse = computed(() => sidebar.value.opened)
 let activeMenu = computed(() => {
   const { meta, path } = route
   if (meta.activeMenu) {
-    return meta.activeMenu
+    return meta.activeMenu as string
   }
   return path
 })

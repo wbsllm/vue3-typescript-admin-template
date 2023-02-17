@@ -9,7 +9,7 @@ const files = import.meta.glob<StoreModule>('./*.ts', { eager: true })
 const modules: ModuleTree<IRootState> = {}
 
 Object.keys(files).forEach((key) => {
-  let name = key.replace('./', '').replace('.ts', '')
+  let name = key.replace(/(^\.\/)|(\.ts$)/g, '')
   modules[name] = files[key].default
 })
 

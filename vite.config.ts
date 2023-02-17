@@ -10,11 +10,14 @@ import { fileURLToPath } from 'url'
 import { resolve } from 'path'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import commonjs from '@rollup/plugin-commonjs'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { viteMockServe } from 'vite-plugin-mock'
 
 const ROOT = fileURLToPath(import.meta.url)
 const r = (p: string) => resolve(ROOT, '..', p)
 
 export default defineConfig({
+  base: '/',
   plugins: [
     vue(),
     vueJsx(),
@@ -38,6 +41,18 @@ export default defineConfig({
       dts: 'src/types/components.d.ts'
     }),
     VueSetupExtend(),
+    createSvgIconsPlugin({
+      iconDirs: [r('src/icons/svg')]
+    }),
+    viteMockServe({
+      ignore: /^\_/,
+      localEnabled: true,
+      prodEnabled: false,
+      injectCode: `
+        import { setupMockServer } from '../mock/1mock-server';
+        setupMockServer();
+      `
+    }),
     Icons()
   ],
   resolve: {

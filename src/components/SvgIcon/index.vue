@@ -12,22 +12,22 @@
 <script setup name="SvgIcon" lang="ts">
 import { isExternal } from '@/utils/validate'
 const props = withDefaults(
-  defineProps<{ iconClass: string; className: string }>(),
+  defineProps<{ iconClass: string; className?: string }>(),
   { className: '' }
 )
 const { iconClass, className } = toRefs(props)
 const styleExternalIcon = computed(() => ({
-  mask: `url(${iconClass}) no-repeat 50% 50%`,
-  '-webkit-mask': `url(${iconClass}) no-repeat 50% 50%`
+  mask: `url(${iconClass.value}) no-repeat 50% 50%`,
+  '-webkit-mask': `url(${iconClass.value}) no-repeat 50% 50%`
 }))
 const svgClass = computed(() => {
-  if (className) {
-    return 'svg-icon ' + className
+  if (className.value) {
+    return 'svg-icon ' + className.value
   } else {
     return 'svg-icon'
   }
 })
-const iconName = computed(() => `#icon-${iconClass}`)
+const iconName = computed(() => `#icon-${iconClass.value}`)
 </script>
 
 <style scoped>

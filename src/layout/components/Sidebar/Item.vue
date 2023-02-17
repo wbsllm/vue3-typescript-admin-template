@@ -19,11 +19,16 @@ export default {
     const vnodes = []
 
     if (icon) {
-      vnodes.push(
-        <el-icon class="sub-el-icon">
-          {h(getCurrentInstance()?.appContext.components[icon] as Component)}
-        </el-icon>
-      )
+      const firstChar = (icon as string).charCodeAt(0)
+      if (firstChar >= 65 && firstChar <= 90) {
+        vnodes.push(
+          <el-icon class="sub-el-icon">
+            {h(getCurrentInstance()?.appContext.components[icon] as Component)}
+          </el-icon>
+        )
+      } else {
+        vnodes.push(<svg-icon icon-class={icon} />)
+      }
     }
 
     if (title) {

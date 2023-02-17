@@ -2,13 +2,13 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { Module } from 'vuex'
 import { IRootState } from '..'
-import { login, getInfo } from '@/api'
+import { login, logout, getInfo } from '@/api/user'
 
 export interface IUserState {
   token: string
-  username: string
   name: string
   avatar: string
+  introduction: string
   roles: string[]
 }
 
@@ -16,8 +16,8 @@ const store: Module<IUserState, IRootState> = {
   namespaced: true,
   state: {
     token: getToken() || '',
-    username: '',
     name: '',
+    introduction: '',
     avatar:
       'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     roles: []
@@ -26,11 +26,11 @@ const store: Module<IUserState, IRootState> = {
     SET_TOKEN: (state, token: string) => {
       state.token = token
     },
-    SET_USERNAME: (state, username: string) => {
-      state.username = username
+    SET_INTRODUCTION: (state, introduction: string) => {
+      state.introduction = introduction
     },
-    SET_NAME: (state, name: string) => {
-      state.name = name
+    SET_NAME: (state, username: string) => {
+      state.name = username
     },
     SET_AVATAR: (state, avatar: string) => {
       state.avatar = avatar
@@ -44,11 +44,13 @@ const store: Module<IUserState, IRootState> = {
     login({ commit }, userInfo) {
       const { username, password } = userInfo
       return new Promise((resolve, reject) => {
-        login()
-          .then((res) => {
-            commit('SET_TOKEN', res.access_token)
-            setToken(res.access_token)
-            resolve(res)
+        login({ username: username.trim(), password: password })
+          .then((response) => {
+            const { data } = response
+
+            commit('SET_TOKEN', data.token)
+            setToken(data.token)
+            resolve(data)
           })
           .catch((error) => {
             reject(error)
@@ -59,15 +61,25 @@ const store: Module<IUserState, IRootState> = {
     // get user info
     getInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        const token = getToken()!
-        getInfo(token)
-          .then((res) => {
-            const { id, nickName, avatar, roles } = res
-            commit('SET_ID', id)
+        getInfo(state.token)
+          .then((response) => {
+            const { data } = response
+
+            if (!data) {
+              reject('Verification failed, please Login again.')
+            }
+
+            const { roles, name, avatar, introduction } = data
+
+            // roles must be a non-empty array
+            if (!roles || roles.length <= 0) {
+              reject('getInfo: roles must be a non-null array!')
+            }
+
             commit('SET_ROLES', roles)
-            commit('SET_NAME', nickName)
+            commit('SET_NAME', name)
             commit('SET_AVATAR', avatar)
-            resolve(res)
+            resolve(data)
           })
           .catch((error) => {
             reject(error)
@@ -78,17 +90,22 @@ const store: Module<IUserState, IRootState> = {
     // user logout
     logout({ commit, state, dispatch }) {
       return new Promise((resolve, reject) => {
-        commit('SET_TOKEN', '')
-        commit('SET_ROLES', [])
-        commit('SET_ID', '')
-        commit('SET_ROLES', '')
-        commit('SET_NAME', '')
-        commit('SET_AVATAR', '')
-        removeToken()
-        resetRouter()
+        logout()
+          .then(() => {
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            removeToken()
+            resetRouter()
 
-        dispatch('tagsView/delAllViews', null, { root: true })
-        resolve('')
+            // reset visited views and cached views
+            // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
+            dispatch('tagsView/delAllViews', null, { root: true })
+
+            resolve('')
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
 

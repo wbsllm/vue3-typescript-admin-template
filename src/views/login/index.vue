@@ -1,13 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      autocomplete="on"
-      label-position="left"
-    >
+    <el-form ref="form" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">Login Form</h3>
       </div>
@@ -16,55 +9,23 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on"
-        />
+        <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text"
+          tabindex="1" autocomplete="on" />
       </el-form-item>
 
-      <el-tooltip
-        v-model="capsTooltip"
-        content="Caps lock is On"
-        placement="right"
-        manual
-      >
-        <el-form-item prop="password">
-          <span class="svg-container">
-            <svg-icon icon-class="password" />
-          </span>
-          <el-input
-            :key="passwordType"
-            ref="password"
-            v-model="loginForm.password"
-            :type="passwordType"
-            placeholder="Password"
-            name="password"
-            tabindex="2"
-            autocomplete="on"
-            @keyup.native="checkCapslock"
-            @blur="capsTooltip = false"
-            @keyup.enter.native="handleLogin"
-          />
-          <span class="show-pwd" @click="showPwd">
-            <svg-icon
-              :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-            />
-          </span>
-        </el-form-item>
-      </el-tooltip>
+      <el-form-item prop="password">
+        <span class="svg-container">
+          <svg-icon icon-class="password" />
+        </span>
+        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType"
+          placeholder="Password" name="password" tabindex="2" autocomplete="on" @keyup.enter="handleLogin" />
+        <span class="show-pwd" @click="showPwd">
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+        </span>
+      </el-form-item>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
-        >Login</el-button
-      >
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin">Login</el-button>
 
       <div style="position: relative">
         <div class="tips">
@@ -76,17 +37,13 @@
           <span>Password : any</span>
         </div>
 
-        <el-button
-          class="thirdparty-button"
-          type="primary"
-          @click="showDialog = true"
-        >
+        <el-button class="thirdparty-button" type="primary" @click="showDialog = true">
           Or connect with
         </el-button>
       </div>
     </el-form>
 
-    <el-dialog title="Or connect with" :visible.sync="showDialog">
+    <el-dialog title="Or connect with" v-model="showDialog">
       Can not be simulated on local, so please combine you own business
       simulation! ! !
       <br />
@@ -94,127 +51,103 @@
       <br />
       <social-sign />
     </el-dialog>
-  </div>
+</div>
 </template>
 
 <script lang="ts" setup>
 import { validUsername } from '@/utils/validate'
-import SocialSign from './components/SocialSignin'
+import SocialSign from './components/SocialSignin.vue'
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
+let username = ref()
+let password = ref()
+let form = ref()
+let loading = ref(false)
+let redirect = ref('')
+let otherQuery = ref({})
+let showDialog = ref(false)
+let passwordType = ref('password')
 let loginForm = reactive({
   username: 'admin',
   password: '111111'
 })
-export default {
-  name: 'Login',
-  components: { SocialSign },
-  data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
-    return {
-      loginForm: {
-        username: 'admin',
-        password: '111111'
-      },
-      loginRules: {
-        username: [
-          { required: true, trigger: 'blur', validator: validateUsername }
-        ],
-        password: [
-          { required: true, trigger: 'blur', validator: validatePassword }
-        ]
-      },
-      passwordType: 'password',
-      capsTooltip: false,
-      loading: false,
-      showDialog: false,
-      redirect: undefined,
-      otherQuery: {}
-    }
-  },
-  watch: {
-    $route: {
-      handler: function (route) {
-        const query = route.query
-        if (query) {
-          this.redirect = query.redirect
-          this.otherQuery = this.getOtherQuery(query)
-        }
-      },
-      immediate: true
-    }
-  },
-  created() {
-    // window.addEventListener('storage', this.afterQRScan)
-  },
-  mounted() {
-    if (this.loginForm.username === '') {
-      this.$refs.username.focus()
-    } else if (this.loginForm.password === '') {
-      this.$refs.password.focus()
-    }
-  },
-  destroyed() {
-    // window.removeEventListener('storage', this.afterQRScan)
-  },
-  methods: {
-    checkCapslock(e) {
-      const { key } = e
-      this.capsTooltip = key && key.length === 1 && key >= 'A' && key <= 'Z'
-    },
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
-      } else {
-        this.passwordType = 'password'
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
-    handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.loading = true
-          this.$store
-            .dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({
-                path: this.redirect || '/',
-                query: this.otherQuery
-              })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    getOtherQuery(query) {
-      return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== 'redirect') {
-          acc[cur] = query[cur]
-        }
-        return acc
-      }, {})
-    }
+const validateUsername = (rule: any, value: string, callback: Function) => {
+  if (!validUsername(value)) {
+    callback(new Error('Please enter the correct user name'))
+  } else {
+    callback()
   }
 }
+const validatePassword = (rule: any, value: string, callback: Function) => {
+  if (value.length < 6) {
+    callback(new Error('The password can not be less than 6 digits'))
+  } else {
+    callback()
+  }
+}
+let loginRules = reactive({
+  username: [
+    { required: true, trigger: 'blur', validator: validateUsername }
+  ],
+  password: [
+    { required: true, trigger: 'blur', validator: validatePassword }
+  ]
+})
+const getOtherQuery = (query: any) => {
+  return Object.keys(query).reduce((acc, cur) => {
+    if (cur !== 'redirect') {
+      (acc as any)[cur] = query[cur]
+    }
+    return acc
+  }, {})
+}
+const handleLogin = () => {
+  form.value.validate((valid: boolean) => {
+    if (valid) {
+      loading.value = true
+      store.dispatch('user/login', loginForm).then((res) => {
+        router.push({
+          path: redirect.value || '/',
+          query: otherQuery.value
+        })
+        loading.value = false
+      }).catch(() => {
+        loading.value = false
+      })
+    } else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
+
+const showPwd = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = ''
+  } else {
+    passwordType.value = 'password'
+  }
+  nextTick(() => {
+    password.value.focus()
+  })
+}
+
+watch(route, () => {
+  const query = route.query
+  if (query) {
+    redirect.value = query.redirect as string
+    otherQuery.value = getOtherQuery(query)
+  }
+}, { immediate: true })
+
+onMounted(() => {
+  if (loginForm.username === '') {
+    username.value.focus()
+  } else if (loginForm.password === '') {
+    password.value.focus()
+  }
+})
 </script>
 
 <style lang="scss">
@@ -235,7 +168,7 @@ $cursor: #fff;
     height: 47px;
     width: 85%;
 
-    input {
+    .el-input__wrapper {
       background: transparent;
       border: 0px;
       -webkit-appearance: none;
@@ -244,6 +177,8 @@ $cursor: #fff;
       color: $light_gray;
       height: 47px;
       caret-color: $cursor;
+      box-shadow: none;
+      width: 100%;
 
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;

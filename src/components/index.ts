@@ -1,22 +1,16 @@
 import { App, Component } from 'vue'
 
-interface ComponentModule {
-  default: Component
-}
-
-const files = import.meta.glob<ComponentModule>('./**/*.vue', { eager: true })
-const modules: Record<string, Component> = {}
-
-Object.keys(files).forEach((key) => {
-  let name = key.replace(/\.\/|(\.ts$)/, '')
-  modules[name] = files[key].default
+const components = import.meta.glob<{ default: Component }>('./**/*.vue', {
+  eager: true
 })
 
 export default {
   install(Vue: App) {
-    Object.keys(files).forEach((key) => {
-      let name = key.replace(/(^\.\/)|(\.vue$)/, '')
-      Vue.component(name, files[key].default)
+    Object.keys(components).forEach((key) => {
+      let name = key.replace(/(^\.\/)|(\/index\.vue$)/g, '')
+      // only have Index file can be register in Global Vue
+      if(name.endsWith('.vue')) return
+      Vue.component(name, components[key].default)
     })
   }
 }

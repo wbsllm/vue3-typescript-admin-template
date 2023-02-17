@@ -15,7 +15,6 @@
 
 <script>
 import * as pahToRegexp from 'path-to-regexp'
-
 export default {
   data() {
     return {

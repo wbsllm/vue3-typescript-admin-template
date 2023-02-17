@@ -1,22 +1,29 @@
 {
-  "name": "admin-template",
+  "name": "vue-element-admin",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "A magical vue admin use by ts .",
+  "author": "LaiBaoYuan <1727283040@qq.com>",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --check --write ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vue",
+    "admin",
+    "element-plus",
+    "typescript",
+    "vite",
+    "dashboard",
+    "admin-template",
+    "management-system"
+  ],
   "license": "ISC",
   "dependencies": {
-    "@element-plus/icons-vue": "^2.0.10",
     "axios": "^1.3.3",
-    "dayjs": "^1.11.7",
+    "clipboard": "^2.0.11",
+    "driver.js": "^0.9.8",
     "element-plus": "^2.2.30",
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
@@ -28,6 +35,7 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^18.13.0",
@@ -35,6 +43,7 @@
     "@types/path-browserify": "^1.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "mockjs": "^1.1.0",
     "prettier": "^2.8.4",
     "sass": "^1.32.8",
     "sass-loader": "^10.1.1",
@@ -43,6 +52,8 @@
     "unplugin-icons": "^0.15.3",
     "unplugin-vue-components": "^0.23.0",
     "vite": "^4.1.1",
+    "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue-tsc": "^1.1.0"
   }
