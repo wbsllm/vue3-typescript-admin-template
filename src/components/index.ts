@@ -8,7 +8,7 @@ const files = import.meta.glob<ComponentModule>('./**/*.vue', { eager: true })
 const modules: Record<string, Component> = {}
 
 Object.keys(files).forEach((key) => {
-  let name = key.replace('./', '').replace('.ts', '')
+  let name = key.replace(/\.\/|(\.ts$)/, '')
   modules[name] = files[key].default
 })
 

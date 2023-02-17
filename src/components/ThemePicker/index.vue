@@ -26,6 +26,11 @@ let emits = defineEmits<{ (e: 'change', val: string): void }>()
 let theme = ref('')
 let chalk = ref('')
 let variables = ref<Record<string, string>>({})
+onMounted(() => {
+  document
+    .querySelector('.theme-picker-dropdown')
+    ?.addEventListener('click', (e) => e.stopPropagation())
+})
 watch(
   defaultTheme,
   (val) => {

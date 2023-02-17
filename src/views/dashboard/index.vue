@@ -1,6 +1,51 @@
 <template>
   <div>
-    dashboard
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
+    <div>dashboard</div>
     <el-button @click="$router.push('/test')">跳转</el-button>
   </div>
 </template>
