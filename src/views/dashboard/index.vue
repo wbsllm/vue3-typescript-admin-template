@@ -1,57 +1,33 @@
 <template>
-  <div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <div>dashboard</div>
-    <el-button @click="$router.push('/test')">跳转</el-button>
+  <div class="dashboard-container">
+    <component :is="currentRole"></component>
   </div>
 </template>
 
-<script setup name="dashboard" lang="ts">
-//11
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { mapGetters } from 'vuex'
+import adminDashboard from './admin/index.vue'
+import editorDashboard from './editor/index.vue'
+export default defineComponent({
+  components: {
+    adminDashboard,
+    editorDashboard
+  },
+  setup() {
+    return {
+      currentRole: ref('adminDashboard')
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'roles'
+    ])
+  },
+  created() {
+    if (!this.roles.includes('admin')) {
+      this.currentRole = 'editorDashboard'
+    }
+  }
+})
 </script>
-
-<style scoped></style>

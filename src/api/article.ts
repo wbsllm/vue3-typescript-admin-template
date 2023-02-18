@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function fetchList(query: any) {
+export function fetchList(query?: any) {
   return request({
     url: '/vue-element-admin/article/list',
     method: 'get',

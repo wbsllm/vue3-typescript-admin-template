@@ -1,47 +1,26 @@
 <template>
   <div v-if="!item.hidden">
-    <template
-      v-if="
-        hasOneShowingChild(item.children, item) &&
-        onlyOneChild &&
-        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-        !item.alwaysShow
-      "
-    >
+    <template v-if="
+      hasOneShowingChild(item.children, item) &&
+      onlyOneChild &&
+      (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+      !item.alwaysShow
+    ">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
-          :class="{ 'submenu-title-noDropdown': !isNest }"
-        >
-          <child-item
-            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            :title="onlyOneChild.meta.title"
-          />
+        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
+          <child-item :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+            :title="$t(`route.${lowercaseFirstLetter(onlyOneChild.meta.title)}`)" />
         </el-menu-item>
       </app-link>
     </template>
 
-    <el-sub-menu
-      v-else
-      ref="subMenu"
-      :index="resolvePath(item.path)"
-      popper-append-to-body
-    >
+    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <template #title>
-        <child-item
-          v-if="item.meta"
-          :icon="item.meta.icon"
-          :title="item.meta.title"
-        />
+        <child-item v-if="item.meta" :icon="item.meta.icon"
+          :title="$t(`route.${lowercaseFirstLetter(item.meta.title)}`)" />
       </template>
-      <sidebar-item
-        v-for="child in item.children"
-        :key="child.path"
-        :is-nest="true"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-        class="nest-menu"
-      />
+      <sidebar-item v-for="child in item.children" :key="child.path" :is-nest="true" :item="child"
+        :base-path="resolvePath(child.path)" class="nest-menu" />
     </el-sub-menu>
   </div>
 </template>
@@ -52,6 +31,7 @@ import { RouteConfig } from '@/router'
 import { isExternal } from '@/utils/validate'
 import { resolve } from 'path-browserify'
 import ChildItem from './Item.vue'
+import { lowercaseFirstLetter } from '@/utils'
 const props = withDefaults(
   defineProps<{
     item: RouteConfig

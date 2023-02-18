@@ -141,28 +141,28 @@ export const asyncRoutes: RouteConfig[] = [
     children: [
       {
         path: 'page',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/permission/page.vue'),
         name: 'PagePermission',
         meta: {
-          title: 'Page Permission',
+          title: 'pagePermission',
           roles: ['admin'] // or you can only set roles in sub nav
         }
       },
       {
         path: 'directive',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/permission/directive.vue'),
         name: 'DirectivePermission',
         meta: {
-          title: 'Directive Permission'
+          title: 'directivePermission'
           // if do not set roles, means: this page does not require permission
         }
       },
       {
         path: 'role',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/permission/role.vue'),
         name: 'RolePermission',
         meta: {
-          title: 'Role Permission',
+          title: 'rolePermission',
           roles: ['admin']
         }
       }
@@ -183,6 +183,68 @@ export const asyncRoutes: RouteConfig[] = [
   },
 
   {
+    path: '/excel',
+    component: Layout,
+    redirect: '/excel/export-excel',
+    name: 'Excel',
+    meta: {
+      title: 'excel',
+      icon: 'excel'
+    },
+    children: [
+      {
+        path: 'export-excel',
+        component: () => import('@/views/excel/export-excel.vue'),
+        name: 'ExportExcel',
+        meta: { title: 'exportExcel' }
+      },
+      {
+        path: 'export-selected-excel',
+        component: () => import('@/views/excel/select-excel.vue'),
+        name: 'SelectExcel',
+        meta: { title: 'selectExcel' }
+      },
+      {
+        path: 'export-merge-header',
+        component: () => import('@/views/excel/merge-header.vue'),
+        name: 'MergeHeader',
+        meta: { title: 'mergeHeader' }
+      },
+      {
+        path: 'upload-excel',
+        component: () => import('@/views/excel/upload-excel.vue'),
+        name: 'UploadExcel',
+        meta: { title: 'uploadExcel' }
+      }
+    ]
+  },
+
+  {
+    path: '/error',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'ErrorPages',
+    meta: {
+      title: 'errorPages',
+      icon: '404'
+    },
+    children: [
+      {
+        path: '401',
+        component: () => import('@/views/error-page/401.vue'),
+        name: 'Page401',
+        meta: { title: 'page401', noCache: true }
+      },
+      {
+        path: '404',
+        component: () => import('@/views/error-page/404.vue'),
+        name: 'Page404',
+        meta: { title: 'page404', noCache: true }
+      }
+    ]
+  },
+
+  {
     path: '/pdf',
     component: Layout,
     redirect: '/pdf/index',
@@ -191,7 +253,7 @@ export const asyncRoutes: RouteConfig[] = [
         path: 'index',
         component: () => import('@/views/pdf/index.vue'),
         name: 'PDF',
-        meta: { title: 'PDF', icon: 'pdf' }
+        meta: { title: 'Pdf', icon: 'pdf' }
       }
     ]
   },
@@ -221,7 +283,7 @@ export const asyncRoutes: RouteConfig[] = [
         path: 'index',
         component: () => import('@/views/clipboard/index.vue'),
         name: 'ClipboardDemo',
-        meta: { title: 'Clipboard', icon: 'clipboard' }
+        meta: { title: 'clipboardDemo', icon: 'clipboard' }
       }
     ]
   },
@@ -232,7 +294,7 @@ export const asyncRoutes: RouteConfig[] = [
       {
         path: 'https://github.com/PanJiaChen/vue-element-admin',
         component: () => import('@/views/icons/index.vue'),
-        meta: { title: 'External Link', icon: 'link' }
+        meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
   },

@@ -4,6 +4,7 @@ export interface ISettings {
   tagsView: boolean
   fixedHeader: boolean
   sidebarLogo: boolean
+  supportPinyinSearch: boolean
   errorLog: string | string[]
 }
 
@@ -33,6 +34,13 @@ export const defaultSettings: ISettings = {
    * @description Whether show the logo in sidebar
    */
   sidebarLogo: true,
+
+  /**
+   * @type {boolean} true | false
+   * @description Whether support pinyin search in headerSearch
+   * Bundle size minified 47.3kb,minified + gzipped 63kb
+   */
+  supportPinyinSearch: true,
 
   /**
    * @type {string | array} 'production' | ['production', 'development']

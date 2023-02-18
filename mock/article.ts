@@ -28,15 +28,34 @@ for (let i = 0; i < count; i++) {
       pageviews: '@integer(300, 5000)',
       image_uri,
       platforms: ['a-platform']
-    }) as never
+    })
   )
+}
+
+export interface Article {
+  id: number
+  timestamp: number
+  author: string
+  reviewer: string
+  title: string
+  content_short: string
+  content: string
+  forecast: number
+  importance: number
+  type: string
+  status: string
+  display_time: string
+  comment_disabled: boolean
+  pageviews: number
+  image_uri: string
+  platforms: string[]
 }
 
 export default [
   {
     url: '/vue-element-admin/article/list',
     method: 'get',
-    response: (config) => {
+    response: (config: any) => {
       const {
         importance,
         type,
@@ -74,7 +93,7 @@ export default [
   {
     url: '/vue-element-admin/article/detail',
     method: 'get',
-    response: (config) => {
+    response: (config: any) => {
       const { id } = config.query
       for (const article of List) {
         if (article.id === +id) {
@@ -90,7 +109,7 @@ export default [
   {
     url: '/vue-element-admin/article/pv',
     method: 'get',
-    response: (_) => {
+    response: () => {
       return {
         code: 20000,
         data: {
@@ -108,7 +127,7 @@ export default [
   {
     url: '/vue-element-admin/article/create',
     method: 'post',
-    response: (_) => {
+    response: () => {
       return {
         code: 20000,
         data: 'success'
@@ -119,7 +138,7 @@ export default [
   {
     url: '/vue-element-admin/article/update',
     method: 'post',
-    response: (_) => {
+    response: () => {
       return {
         code: 20000,
         data: 'success'

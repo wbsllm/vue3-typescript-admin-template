@@ -3,6 +3,7 @@ import { IRootState } from '.'
 
 const getters: GetterTree<IRootState, IRootState> = {
   sidebar: (state) => state.app.sidebar,
+  language: state => state.app.language,
   sidebarLogo: (state) => state.settings.sidebarLogo,
   size: (state) => state.app.size,
   device: (state) => state.app.device,

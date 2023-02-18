@@ -7,22 +7,24 @@
 
     <div class="right-menu">
       <template v-if="app.device !== 'mobile'">
-        <!-- <search id="header-search" class="right-menu-item" /> -->
+        <search id="header-search" class="right-menu-item" />
 
         <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
 
         <screen-full id="screenfull" class="right-menu-item hover-effect" />
 
         <!-- <el-tooltip content="Global Size" effect="dark" placement="bottom">
-                    <size-select id="size-select" class="right-menu-item hover-effect" />
-                  </el-tooltip> -->
+                      <size-select id="size-select" class="right-menu-item hover-effect" />
+                    </el-tooltip> -->
+
+        <lang-select class="right-menu-item hover-effect" />
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="user.avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <el-icon>
-            <CaretBottom />
+            <CaretBottom style="width: 12px;height: 12px;" />
           </el-icon>
         </div>
         <template #dropdown>
@@ -46,12 +48,14 @@
         </template>
       </el-dropdown>
     </div>
-</div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { IRootState } from '@/store'
 import ScreenFull from '@/components/Screenfull/index.vue'
+import LangSelect from '@/components/LangSelect/index.vue'
+import Search from '@/components/HeaderSearch/index.vue'
 const store = useStore<IRootState>()
 const route = useRoute()
 const router = useRouter()
@@ -123,7 +127,7 @@ const logout = async () => {
     }
 
     .avatar-container {
-      margin-right: 30px;
+      margin-right: 10px;
 
       .avatar-wrapper {
         margin-top: 5px;

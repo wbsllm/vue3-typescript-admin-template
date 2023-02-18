@@ -12,23 +12,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    value: {
-      type: Boolean,
-      default: true
-    }
+<script lang="ts" setup>
+const props = withDefaults(defineProps<{ modelValue: boolean }>(), { modelValue: true })
+const emits = defineEmits<{ (e: 'update:modelValue', val: boolean): void }>()
+let autoWidth = computed({
+  get() {
+    return props.modelValue
   },
-  computed: {
-    autoWidth: {
-      get() {
-        return this.value
-      },
-      set(val) {
-        this.$emit('input', val)
-      }
-    }
+  set(val: boolean) {
+    emits('update:modelValue', val)
   }
-}
+})
 </script>

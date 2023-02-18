@@ -9,7 +9,7 @@ declare module '*.vue' {
 declare global {
   import { ComponentCustomProperties } from 'vue'
   import { Store } from 'vuex'
-  import { IRootState } from './store'
+  import { IRootState } from '@/store'
   declare module '@vue/runtime-core' {
     // declare your own store states
 

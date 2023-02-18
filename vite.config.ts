@@ -12,6 +12,8 @@ import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import commonjs from '@rollup/plugin-commonjs'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
+import replace from '@rollup/plugin-replace'
+console.log(process.cwd())
 
 const ROOT = fileURLToPath(import.meta.url)
 const r = (p: string) => resolve(ROOT, '..', p)
@@ -22,7 +24,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     autoImports({
-      imports: ['vue', 'vuex', 'vue-router'],
+      imports: ['vue', 'vuex', 'vue-router', 'vue-i18n'],
       dts: 'src/types/auto-imports.d.ts',
       resolvers: [
         ElementPlusResolver(),
@@ -66,7 +68,9 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      plugins: [commonjs()]
+      plugins: [
+        commonjs()
+      ]
     }
   }
 })
