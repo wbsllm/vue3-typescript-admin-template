@@ -12,8 +12,6 @@ import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import commonjs from '@rollup/plugin-commonjs'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
-import replace from '@rollup/plugin-replace'
-console.log(process.cwd())
 
 const ROOT = fileURLToPath(import.meta.url)
 const r = (p: string) => resolve(ROOT, '..', p)
@@ -49,9 +47,9 @@ export default defineConfig({
     viteMockServe({
       ignore: /^\_/,
       localEnabled: true,
-      prodEnabled: false,
+      prodEnabled: true,
       injectCode: `
-        import { setupMockServer } from '../mock/1mock-server';
+        import { setupMockServer } from '../mock/_mock-server';
         setupMockServer();
       `
     }),
