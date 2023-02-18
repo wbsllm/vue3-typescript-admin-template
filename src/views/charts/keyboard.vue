@@ -1,20 +1,15 @@
 <template>
   <div class="chart-container">
-    <chart height="100%" width="100%" />
+    <Chart />
   </div>
 </template>
 
-<script>
-import Chart from '@/components/Charts/Keyboard'
-
-export default {
-  name: 'KeyboardChart',
-  components: { Chart }
-}
+<script lang="ts" setup>
+import Chart from '@/components/Charts/Keyboard.vue'
 </script>
 
 <style scoped>
-.chart-container{
+.chart-container {
   position: relative;
   width: 100%;
   height: calc(100vh - 84px);

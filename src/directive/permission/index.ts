@@ -1,4 +1,3 @@
-import { IRootState } from '@/store'
 import { ObjectDirective, DirectiveBinding } from 'vue'
 import store from '@/store'
 

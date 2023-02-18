@@ -6,10 +6,24 @@ import {
 
 /* Layout */
 import Layout from '@/layout/index.vue'
+import nestedRouter from './modules/nested'
+import chartsRouter from './modules/charts'
 import { Component } from 'vue'
 
 export type RouteConfig = RouteRecordRaw & {
   path: string
+  // component?: Component
+  name?: string
+  hidden?: boolean
+  redirect?: string
+  alwaysShow?: boolean
+  meta?: Partial<IMate>
+  children?: RouteConfig[]
+}
+
+interface IRoute {
+  path: string
+  component?: Component
   name?: string
   hidden?: boolean
   redirect?: string
@@ -168,7 +182,20 @@ export const asyncRoutes: RouteConfig[] = [
       }
     ]
   },
-
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index.vue'),
+        name: 'Icons',
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
+      }
+    ]
+  },
+  chartsRouter,
+  nestedRouter,
   {
     path: '/tab',
     component: Layout,
@@ -181,7 +208,30 @@ export const asyncRoutes: RouteConfig[] = [
       }
     ]
   },
-
+  {
+    path: '/error',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'ErrorPages',
+    meta: {
+      title: 'errorPages',
+      icon: '404'
+    },
+    children: [
+      {
+        path: '401',
+        component: () => import('@/views/error-page/401.vue'),
+        name: 'Page401',
+        meta: { title: 'page401', noCache: true }
+      },
+      {
+        path: '404',
+        component: () => import('@/views/error-page/404.vue'),
+        name: 'Page404',
+        meta: { title: 'page404', noCache: true }
+      }
+    ]
+  },
   {
     path: '/excel',
     component: Layout,
@@ -220,31 +270,6 @@ export const asyncRoutes: RouteConfig[] = [
   },
 
   {
-    path: '/error',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404'
-    },
-    children: [
-      {
-        path: '401',
-        component: () => import('@/views/error-page/401.vue'),
-        name: 'Page401',
-        meta: { title: 'page401', noCache: true }
-      },
-      {
-        path: '404',
-        component: () => import('@/views/error-page/404.vue'),
-        name: 'Page404',
-        meta: { title: 'page404', noCache: true }
-      }
-    ]
-  },
-
-  {
     path: '/pdf',
     component: Layout,
     redirect: '/pdf/index',
@@ -261,18 +286,6 @@ export const asyncRoutes: RouteConfig[] = [
     path: '/pdf/download',
     component: () => import('@/views/pdf/download.vue'),
     hidden: true
-  },
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index.vue'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
-      }
-    ]
   },
 
   {
@@ -293,7 +306,7 @@ export const asyncRoutes: RouteConfig[] = [
     children: [
       {
         path: 'https://github.com/PanJiaChen/vue-element-admin',
-        component: () => import('@/views/icons/index.vue'),
+        component: () => import('@/views/clipboard/index.vue'),
         meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
@@ -305,7 +318,7 @@ const createRouter = () =>
   createVueRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     history: createWebHistory(),
-    routes: constantRoutes
+    routes: constantRoutes as any
   })
 
 const router = createRouter()

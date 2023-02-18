@@ -1,16 +1,11 @@
 <template>
   <div class="chart-container">
-    <chart height="100%" width="100%" />
+    <Chart />
   </div>
 </template>
 
-<script>
-import Chart from '@/components/Charts/MixChart'
-
-export default {
-  name: 'MixChart',
-  components: { Chart }
-}
+<script lang="ts" setup>
+import Chart from '@/components/Charts/MixChart.vue'
 </script>
 
 <style scoped>

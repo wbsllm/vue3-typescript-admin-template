@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
 import * as XLSX from 'xlsx'
 const { onSuccess, beforeUpload } = defineProps<{ beforeUpload: Function, onSuccess: Function }>()
 let loading = ref(false)

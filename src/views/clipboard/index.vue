@@ -17,18 +17,30 @@
   </div>
 </template>
 
-<script setup name="ClipboardDemo" lang="ts">
+<script lang="ts">
 import clip from '@/utils/clipboard' // use clipboard directly
-// import clipboard from '@/directive/clipboard/index.js' // use clipboard by v-directive
-import { ElMessage } from 'element-plus';
-let activeName = ref('directly')
-let inputData = ref('https://github.com/PanJiaChen/vue-element-admin')
-const clipboardSuccess = () => {
-  ElMessage({
-    message: 'Copy successfully',
-    type: 'success',
-    duration: 1500
-  })
+import clipboard from '@/directive/clipboard/index.js' // use clipboard by v-directive
+export default {
+  name: 'ClipboardDemo',
+  directives: {
+    clipboard
+  },
+  data() {
+    return {
+      activeName: 'directly',
+      inputData: 'https://github.com/PanJiaChen/vue-element-admin',
+      clip
+    }
+  },
+  methods: {
+    clipboardSuccess() {
+      ElMessage({
+        message: 'Copy successfully',
+        type: 'success',
+        duration: 0
+      })
+    }
+  }
 }
 </script>
 

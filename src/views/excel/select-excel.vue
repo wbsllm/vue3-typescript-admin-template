@@ -46,7 +46,6 @@
 <script lang="ts">
 import { fetchList } from '@/api/article'
 import { Article } from '../../../mock/article'
-import { ElMessage } from 'element-plus'
 export default {
   name: 'SelectExcel',
   data() {

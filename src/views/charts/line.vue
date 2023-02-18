@@ -1,16 +1,11 @@
 <template>
   <div class="chart-container">
-    <chart height="100%" width="100%" />
+    <Chart />
   </div>
 </template>
 
-<script>
-import Chart from '@/components/Charts/LineMarker'
-
-export default {
-  name: 'LineChart',
-  components: { Chart }
-}
+<script lang="ts" setup>
+import Chart from '@/components/Charts/LineMarker.vue'
 </script>
 
 <style scoped>

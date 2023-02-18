@@ -9,7 +9,6 @@
 
 <script lang="ts" setup name="UploadExcel">
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
-import { ElMessage } from 'element-plus';
 let tableData = ref([])
 let tableHeader = ref([])
 const beforeUpload = (file: any) => {

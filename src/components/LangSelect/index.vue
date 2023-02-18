@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
 const { locale } = useI18n()
 const store = useStore()
 const language = computed(() => store.getters.language)
