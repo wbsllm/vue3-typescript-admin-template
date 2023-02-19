@@ -119,7 +119,7 @@ export const asyncRoutes: RouteConfig[] = [
 const createRouter = () =>
   createVueRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
-    history: createWebHistory(),
+    history: createWebHistory('element-admin-template-v3-ts'),
     routes: constantRoutes as any
   })
 
