@@ -46,7 +46,7 @@ export default defineConfig({
     viteMockServe({
       ignore: /^\_/,
       localEnabled: true,
-      prodEnabled: true,
+      prodEnabled: false,
       injectCode: `
         import { setupMockServer } from '../mock/_mock-server';
         setupMockServer();
