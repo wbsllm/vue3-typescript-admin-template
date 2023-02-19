@@ -7,17 +7,7 @@
 
     <div class="right-menu">
       <template v-if="app.device !== 'mobile'">
-        <search id="header-search" class="right-menu-item" />
-
-        <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
-
         <screen-full id="screenfull" class="right-menu-item hover-effect" />
-
-        <!-- <el-tooltip content="Global Size" effect="dark" placement="bottom">
-                      <size-select id="size-select" class="right-menu-item hover-effect" />
-                    </el-tooltip> -->
-
-        <lang-select class="right-menu-item hover-effect" />
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -54,8 +44,6 @@
 <script setup lang="ts">
 import { IRootState } from '@/store'
 import ScreenFull from '@/components/Screenfull/index.vue'
-import LangSelect from '@/components/LangSelect/index.vue'
-import Search from '@/components/HeaderSearch/index.vue'
 const store = useStore<IRootState>()
 const route = useRoute()
 const router = useRouter()

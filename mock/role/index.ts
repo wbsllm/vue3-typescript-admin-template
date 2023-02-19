@@ -1,9 +1,9 @@
 import { MockMethod } from 'vite-plugin-mock'
 import Mock from 'mockjs'
-const { deepClone } = require('../_utils')
+import { deepClone } from '../_utils'
 import { asyncRoutes, constantRoutes } from './routes'
 
-const routes = deepClone([...constantRoutes, ...asyncRoutes])
+const routes = deepClone([...constantRoutes, ...asyncRoutes]) as any
 
 const roles = [
   {

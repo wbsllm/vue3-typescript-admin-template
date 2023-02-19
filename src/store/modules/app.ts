@@ -1,7 +1,6 @@
 import { Module } from 'vuex'
 import Cookies from 'js-cookie'
 import { IRootState } from '..'
-import { getLanguage } from '@/lang'
 
 export interface IAppState {
   device: string
@@ -10,7 +9,6 @@ export interface IAppState {
     withoutAnimation: boolean
   }
   size: string
-  language: string
 }
 
 const store: Module<IAppState, IRootState> = {
@@ -23,7 +21,6 @@ const store: Module<IAppState, IRootState> = {
         : true,
       withoutAnimation: false
     },
-    language: getLanguage(),
     size: Cookies.get('size') || 'medium'
   },
   mutations: {
@@ -40,10 +37,6 @@ const store: Module<IAppState, IRootState> = {
       Cookies.set('sidebarStatus', '0')
       state.sidebar.opened = false
       state.sidebar.withoutAnimation = withoutAnimation
-    },
-    SET_LANGUAGE: (state, language: string) => {
-      state.language = language
-      Cookies.set('language', language)
     },
     TOGGLE_DEVICE: (state, device: string) => {
       state.device = device
@@ -62,9 +55,6 @@ const store: Module<IAppState, IRootState> = {
     },
     toggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
-    },
-    setLanguage({ commit }, language: string) {
-      commit('SET_LANGUAGE', language)
     },
     setSize({ commit }, size) {
       commit('SET_SIZE', size)

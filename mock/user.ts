@@ -73,8 +73,8 @@ export default [
   // user logout
   {
     url: '/vue-element-admin/user/logout',
-    type: 'post',
-    response: (_) => {
+    method: 'post',
+    response: () => {
       return {
         code: 20000,
         data: 'success'

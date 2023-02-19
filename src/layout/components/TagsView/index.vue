@@ -3,24 +3,24 @@
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
       <router-link v-for="tag in visitedViews" ref="tag" :key="tag.path" :class="isActive(tag) ? 'active' : ''"
         :to="{ path: tag.path, query: tag.query }" tag="span" class="tags-view-item">
-        {{ $t(`route.${lowercaseFirstLetter(tag.title!)}`) }}
+        {{ tag.title! }}
         <el-icon v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)">
           <Close />
         </el-icon>
       </router-link>
     </scroll-pane>
     <!-- <ul
-                  v-show="visible"
-                  :style="{ left: left + 'px', top: top + 'px' }"
-                  class="contextmenu"
-                >
-                  <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
-                  <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
-                    Close
-                  </li>
-                  <li @click="closeOthersTags">Close Others</li>
-                  <li @click="closeAllTags(selectedTag)">Close All</li>
-                </ul> -->
+                    v-show="visible"
+                    :style="{ left: left + 'px', top: top + 'px' }"
+                    class="contextmenu"
+                  >
+                    <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
+                    <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
+                      Close
+                    </li>
+                    <li @click="closeOthersTags">Close Others</li>
+                    <li @click="closeAllTags(selectedTag)">Close All</li>
+                  </ul> -->
   </div>
 </template>
 
@@ -30,16 +30,9 @@ import ScrollPane from './ScrollPane.vue'
 import { ITagView } from '@/store/modules/tagsView'
 import { RouteConfig } from '@/router'
 import path from 'path-browserify'
-import { lowercaseFirstLetter } from '@/utils'
 const store = useStore<IRootState>()
 const route = useRoute()
 const router = useRouter()
-let tag = ref()
-let visible = ref(false)
-let top = ref(0)
-let left = ref(0)
-let selectedTag = ref<ITagView>()
-let affixTags = ref<Partial<ITagView[]>>([])
 let visitedViews = computed(() => store.state.tagsView.visitedViews)
 let routes = computed(() => store.state.permission.routes)
 const isActive = (tag: ITagView) => {
