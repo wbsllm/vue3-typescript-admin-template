@@ -1,12 +1,12 @@
 <template>
   <section class="app-main">
-    <Transition name="fade" mode="out-in">
-      <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }">
+      <Transition name="fade" mode="out-in">
         <KeepAlive :include="cachedViews">
           <component :is="Component"></component>
         </KeepAlive>
-      </router-view>
-    </Transition>
+      </Transition>
+    </router-view>
   </section>
 </template>
 
@@ -17,18 +17,18 @@ const cachedViews = computed(() => store.state.tagsView.cachedViews)
 </script>
 
 <style lang="scss" scoped>
-// .fade-enter-active,
-// .fade-leave-active {
-//   transition: all 1.5s;
-// }
-// .fade-enter-from {
-//   transform: translateX(-100px);
-//   opacity: 0;
-// }
-// .fade-leave-from {
-//   transform: translateX(100px);
-//   opacity: 0;
-// }
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
+.fade-enter-from {
+  transform: translateX(-100px);
+  opacity: 0;
+}
+.fade-leave-from {
+  transform: translateX(100px);
+  opacity: 0;
+}
 .app-main {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
@@ -37,7 +37,7 @@ const cachedViews = computed(() => store.state.tagsView.cachedViews)
   overflow: hidden;
 }
 
-.fixed-header + .app-main {
+.fixed-header+.app-main {
   padding-top: 50px;
 }
 
@@ -47,7 +47,7 @@ const cachedViews = computed(() => store.state.tagsView.cachedViews)
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header + .app-main {
+  .fixed-header+.app-main {
     padding-top: 84px;
   }
 }

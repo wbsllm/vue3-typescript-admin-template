@@ -95,7 +95,8 @@ watch(theme, async (val) => {
       themeCluster
     )
   })
-
+  console.log(111);
+  
   emits('change', val)
   // $message.close()
 })

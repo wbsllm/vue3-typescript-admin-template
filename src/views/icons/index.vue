@@ -1,6 +1,7 @@
 <template>
   <div class="icons-container">
-    <aside>
+    icons
+    <!-- <aside>
       <a href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html" target="_blank">Add and use
       </a>
     </aside>
@@ -35,7 +36,7 @@
           </div>
         </div>
       </el-tab-pane>
-    </el-tabs>
+    </el-tabs> -->
   </div>
 </template>
 

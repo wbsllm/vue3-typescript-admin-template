@@ -30,11 +30,11 @@
 import { IRootState } from '@/store'
 import ThemePicker from '@/components/ThemePicker/index.vue'
 const store = useStore<IRootState>()
-const { settings } = toRefs(store.state)
+// const { settings } = toRefs(store.state)
 
 let fixedHeader = computed({
   get() {
-    return settings.value.fixedHeader
+    return store.state.settings.fixedHeader
   },
   set(val) {
     store.dispatch('settings/changeSetting', {
@@ -46,7 +46,7 @@ let fixedHeader = computed({
 
 let tagsView = computed({
   get() {
-    return settings.value.tagsView
+    return store.state.settings.tagsView
   },
   set(val) {
     store.dispatch('settings/changeSetting', {
@@ -58,7 +58,7 @@ let tagsView = computed({
 
 let sidebarLogo = computed({
   get() {
-    return settings.value.sidebarLogo
+    return store.state.settings.sidebarLogo
   },
   set(val) {
     store.dispatch('settings/changeSetting', {
@@ -69,6 +69,8 @@ let sidebarLogo = computed({
 })
 
 const themeChange = (val: string) => {
+  console.log(val);
+  
   store.dispatch('settings/changeSetting', {
     key: 'theme',
     value: val

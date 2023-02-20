@@ -32,7 +32,7 @@ import ChildItem from './Item.vue'
 const props = withDefaults(
   defineProps<{
     item: RouteConfig
-    isNest: boolean
+    isNest?: boolean
     basePath: string
   }>(),
   {

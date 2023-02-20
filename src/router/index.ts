@@ -109,7 +109,7 @@ export const asyncRoutes: RouteConfig[] = [
         path: 'index',
         component: () => import('@/views/icons/index.vue'),
         name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
+        meta: { title: 'Icons', icon: 'icon' }
       }
     ]
   },

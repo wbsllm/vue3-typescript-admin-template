@@ -4,7 +4,7 @@
   "description": "A magical vue admin use by ts .",
   "author": "LaiBaoYuan <1727283040@qq.com>",
   "scripts": {
-    "dev": "vite --force",
+    "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --check --write ."
