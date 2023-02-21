@@ -104,12 +104,19 @@ export const asyncRoutes: RouteConfig[] = [
   {
     path: '/icon',
     component: Layout,
+    meta: { title: 'Icons', icon: 'icon' },
     children: [
       {
         path: 'index',
         component: () => import('@/views/icons/index.vue'),
         name: 'Icons',
         meta: { title: 'Icons', icon: 'icon' }
+      },
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        name: 'Dashboard',
+        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
   },

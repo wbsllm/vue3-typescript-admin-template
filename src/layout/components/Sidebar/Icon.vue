@@ -7,34 +7,21 @@ export default {
     icon: {
       type: String,
       default: ''
-    },
-    title: {
-      type: String,
-      default: ''
     }
   },
   render(context: any) {
-    const { icon, title } = context
-
-    const vnodes = []
+    const { icon } = context
 
     if (icon) {
       const firstChar = (icon as string).charCodeAt(0)
       if (firstChar >= 65 && firstChar <= 90) {
-        vnodes.push(
-          <el-icon class="sub-el-icon">
-            {h(getCurrentInstance()?.appContext.components[icon] as Component)}
-          </el-icon>
-        )
+        return (<el-icon class="sub-el-icon">
+          {h(getCurrentInstance()?.appContext.components[icon] as Component)}
+        </el-icon>)
       } else {
-        vnodes.push(<svg-icon icon-class={icon} />)
+        return (<svg-icon icon-class={icon} />)
       }
     }
-
-    if (title) {
-      vnodes.push(<span v-slot="title">{title}</span>)
-    }
-    return vnodes
   }
 }
 </script>

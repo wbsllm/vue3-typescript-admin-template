@@ -8,15 +8,15 @@
     ">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
-          <child-item :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :title="onlyOneChild.meta.title" />
+          <Icon :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <template #title>{{ onlyOneChild.meta.title }}</template>
         </el-menu-item>
       </app-link>
     </template>
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
-      <template #title>
-        <child-item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
-      </template>
+      <template #title>{{ item.meta?.title }}</template>
+      <Icon :icon="item.meta?.icon" />
       <sidebar-item v-for="child in item.children" :key="child.path" :is-nest="true" :item="child"
         :base-path="resolvePath(child.path)" class="nest-menu" />
     </el-sub-menu>
@@ -28,7 +28,7 @@ import AppLink from './Link.vue'
 import { RouteConfig } from '@/router'
 import { isExternal } from '@/utils/validate'
 import { resolve } from 'path-browserify'
-import ChildItem from './Item.vue'
+import Icon from './Icon.vue'
 const props = withDefaults(
   defineProps<{
     item: RouteConfig
