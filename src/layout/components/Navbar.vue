@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="navbar">
 import { IRootState } from '@/store'
 import ScreenFull from '@/components/Screenfull/index.vue'
 const store = useStore<IRootState>()

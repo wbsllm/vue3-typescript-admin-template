@@ -4,7 +4,7 @@
   </component>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="menulink">
 import { isExternal } from '@/utils/validate'
 const props = defineProps<{ to: string }>()
 const { to } = toRefs(props)

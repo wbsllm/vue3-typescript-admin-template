@@ -14,15 +14,17 @@
       </app-link>
     </template>
 
-    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
-      <template #title><Icon :icon="item.meta?.icon" /><span>{{ item.meta?.title }}</span></template>
+    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" teleported>
+      <template #title>
+        <Icon :icon="item.meta?.icon" /><span>{{ item.meta?.title }}</span>
+      </template>
       <sidebar-item v-for="child in item.children" :key="child.path" :is-nest="true" :item="child"
         :base-path="resolvePath(child.path)" class="nest-menu" />
     </el-sub-menu>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="sidebaritem">
 import AppLink from './Link.vue'
 import { RouteConfig } from '@/router'
 import { isExternal } from '@/utils/validate'
@@ -39,6 +41,11 @@ const props = withDefaults(
     basePath: ''
   }
 )
+let subMenu = ref()
+onMounted(()=>{
+  console.log(subMenu.value);
+
+})
 const { item, isNest, basePath } = toRefs(props)
 let onlyOneChild = ref<(RouteConfig & { noShowingChildren?: boolean }) | null>(
   null

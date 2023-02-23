@@ -16,7 +16,7 @@ const ROOT = fileURLToPath(import.meta.url)
 const r = (p: string) => resolve(ROOT, '..', p)
 
 export default defineConfig({
-  base: '/element-admin-template-v3-ts',
+  base: '/vue3-typescript-admin-template',
   plugins: [
     vue(),
     vueJsx(),

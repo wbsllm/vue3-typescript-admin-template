@@ -2,21 +2,22 @@
   <section class="app-main">
     <router-view v-slot="{ Component, route }">
       <Transition name="fade-transform" mode="out-in">
-        <KeepAlive :include="cachedViews">
+        <keep-alive :include="cachedViews">
           <component :is="Component" :key="route.path"></component>
-        </KeepAlive>
+        </keep-alive>
       </Transition>
     </router-view>
   </section>
 </template>
 
-<script setup lang="ts" name="AppMain">
+<script setup lang="ts" name="appmain">
 import { IRootState } from '@/store'
 const store = useStore<IRootState>()
 const cachedViews = computed(() => store.state.tagsView.cachedViews)
 </script>
 
 <style lang="scss" scoped>
+
 .app-main {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);

@@ -1,7 +1,6 @@
 <template>
   <div class="icons-container">
-    icons
-    <!-- <aside>
+    <aside>
       <a href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html" target="_blank">Add and use
       </a>
     </aside>
@@ -36,11 +35,11 @@
           </div>
         </div>
       </el-tab-pane>
-    </el-tabs> -->
+    </el-tabs>
   </div>
 </template>
 
-<script setup lang="ts" name="Icons">
+<script setup lang="ts" name="icons">
 import clipboard from '@/utils/clipboard'
 import svgIcons from './svg-icons'
 import elementIcons from './element-icons'

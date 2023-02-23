@@ -1,8 +1,6 @@
 <script lang="tsx">
-import { Component } from 'vue'
 export default {
-  name: 'MenuItem',
-  functional: true,
+  name: 'MemuIcon',
   props: {
     icon: {
       type: String,
@@ -11,7 +9,6 @@ export default {
   },
   render(context: any) {
     const { icon } = context
-
     if (icon) {
       const firstChar = (icon as string).charCodeAt(0)
       if (firstChar >= 65 && firstChar <= 90) {

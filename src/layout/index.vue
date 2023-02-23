@@ -1,5 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper">
+    <div v-if="$store.state.app.device === 'mobile' && store.state.app.sidebar.opened" class="drawer-bg"
+      @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
     <div :class="{ hasTagsView: $store.state.settings.tagsView }" class="main-container">
       <div :class="{ 'fixed-header': $store.state.settings.fixedHeader }">
@@ -18,7 +20,7 @@
 import RightPanel from '@/components/RightPanel/index.vue'
 import { IRootState } from '@/store'
 import { AppMain, Navbar, Sidebar, TagsView, Setting } from './components'
-import './mixins/ResizeHandler'
+import resizeMixin from './mixins/ResizeHandler'
 const store = useStore<IRootState>()
 let classObj = computed(() => ({
   hideSidebar: !store.state.app.sidebar.opened,
@@ -26,6 +28,10 @@ let classObj = computed(() => ({
   withoutAnimation: store.state.app.sidebar.withoutAnimation,
   mobile: store.state.app.device === 'mobile'
 }))
+resizeMixin()
+const handleClickOutside = () => {
+  store.dispatch('app/closeSideBar', { withoutAnimation: false })
+}
 </script>
 
 <style lang="scss" scoped>

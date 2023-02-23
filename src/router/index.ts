@@ -60,36 +60,43 @@ export const constantRoutes: RouteConfig[] = [
     path: '/redirect',
     component: Layout,
     hidden: true,
+    name: 'redirect',
     children: [
       {
         path: '/redirect/:path(.*)',
+        name: '*',
         component: () => import('@/views/redirect/index.vue')
       }
     ]
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/index.vue'),
     hidden: true
   },
   {
     path: '/test',
+    name: 'test',
     component: () => import('@/views/test/index.vue'),
     hidden: true
   },
   {
     path: '/404',
+    name: '404',
     component: () => import('@/views/error-page/404.vue'),
     hidden: true
   },
   {
     path: '/401',
+    name: '401',
     component: () => import('@/views/error-page/401.vue'),
     hidden: true
   },
   {
     path: '/',
     component: Layout,
+    name: 'redirectDashboard',
     redirect: '/dashboard',
     children: [
       {
@@ -117,12 +124,6 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/icons/index.vue'),
         name: 'Icons',
         meta: { title: 'Icons', icon: 'icon' }
-      },
-      {
-        path: 'test',
-        component: () => import('@/views/test/index.vue'),
-        name: 'Test',
-        meta: { title: 'Test', icon: 'dashboard' }
       }
     ]
   },
@@ -132,16 +133,18 @@ export const asyncRoutes: RouteConfig[] = [
 const createRouter = () =>
   createVueRouter({
     scrollBehavior: () => ({ top: 0 }),
-    history: createWebHashHistory('element-admin-template-v3-ts'),
+    history: createWebHashHistory('vue3-typescript-admin-template'),
     routes: constantRoutes as any
   })
 
-const router = createRouter()
+const router = createVueRouter({
+  scrollBehavior: () => ({ top: 0 }),
+  history: createWebHashHistory('vue3-typescript-admin-template'),
+  routes: constantRoutes as any
+})
 
-// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter()
-  ;(router as any).matcher = (newRouter as any).matcher // reset router
+  console.log(router.getRoutes());
 }
 
 export default router
