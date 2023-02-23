@@ -43,7 +43,7 @@
   </el-menu>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="dashboard">
 import { ref } from 'vue'
 import {
   Document,

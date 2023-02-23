@@ -1,9 +1,9 @@
 <template>
   <section class="app-main">
-    <router-view v-slot="{ Component }">
-      <Transition name="fade" mode="out-in">
+    <router-view v-slot="{ Component, route }">
+      <Transition name="fade-transform" mode="out-in">
         <KeepAlive :include="cachedViews">
-          <component :is="Component"></component>
+          <component :is="Component" :key="route.path"></component>
         </KeepAlive>
       </Transition>
     </router-view>
@@ -17,18 +17,6 @@ const cachedViews = computed(() => store.state.tagsView.cachedViews)
 </script>
 
 <style lang="scss" scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.5s;
-}
-.fade-enter-from {
-  transform: translateX(-100px);
-  opacity: 0;
-}
-.fade-leave-from {
-  transform: translateX(100px);
-  opacity: 0;
-}
 .app-main {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);

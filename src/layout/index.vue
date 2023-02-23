@@ -1,13 +1,13 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <sidebar class="sidebar-container" />
-    <div :class="{ hasTagsView: settings.tagsView }" class="main-container">
-      <div :class="{ 'fixed-header': settings.fixedHeader }">
+    <div :class="{ hasTagsView: $store.state.settings.tagsView }" class="main-container">
+      <div :class="{ 'fixed-header': $store.state.settings.fixedHeader }">
         <navbar />
-        <tags-view v-if="settings.tagsView" />
+        <tags-view v-if="$store.state.settings.tagsView" />
       </div>
       <app-main />
-      <right-panel v-if="settings.showSettings">
+      <right-panel v-if="$store.state.settings.showSettings">
         <setting />
       </right-panel>
     </div>
@@ -20,12 +20,11 @@ import { IRootState } from '@/store'
 import { AppMain, Navbar, Sidebar, TagsView, Setting } from './components'
 import './mixins/ResizeHandler'
 const store = useStore<IRootState>()
-let { app, settings } = toRefs(store.state)
 let classObj = computed(() => ({
-  hideSidebar: !app.value.sidebar.opened,
-  openSidebar: app.value.sidebar.opened,
-  withoutAnimation: app.value.sidebar.withoutAnimation,
-  mobile: app.value.device === 'mobile'
+  hideSidebar: !store.state.app.sidebar.opened,
+  openSidebar: store.state.app.sidebar.opened,
+  withoutAnimation: store.state.app.sidebar.withoutAnimation,
+  mobile: store.state.app.device === 'mobile'
 }))
 </script>
 

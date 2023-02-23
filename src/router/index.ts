@@ -1,6 +1,7 @@
 import {
   createRouter as createVueRouter,
   createWebHashHistory,
+  createWebHistory,
   RouteRecordRaw
 } from 'vue-router'
 
@@ -72,6 +73,11 @@ export const constantRoutes: RouteConfig[] = [
     hidden: true
   },
   {
+    path: '/test',
+    component: () => import('@/views/test/index.vue'),
+    hidden: true
+  },
+  {
     path: '/404',
     component: () => import('@/views/error-page/404.vue'),
     hidden: true
@@ -113,10 +119,10 @@ export const asyncRoutes: RouteConfig[] = [
         meta: { title: 'Icons', icon: 'icon' }
       },
       {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        path: 'test',
+        component: () => import('@/views/test/index.vue'),
+        name: 'Test',
+        meta: { title: 'Test', icon: 'dashboard' }
       }
     ]
   },
@@ -125,7 +131,7 @@ export const asyncRoutes: RouteConfig[] = [
 
 const createRouter = () =>
   createVueRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+    scrollBehavior: () => ({ top: 0 }),
     history: createWebHashHistory('element-admin-template-v3-ts'),
     routes: constantRoutes as any
   })

@@ -69,8 +69,6 @@ let sidebarLogo = computed({
 })
 
 const themeChange = (val: string) => {
-  console.log(val);
-  
   store.dispatch('settings/changeSetting', {
     key: 'theme',
     value: val
