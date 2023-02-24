@@ -41,11 +41,7 @@ const props = withDefaults(
     basePath: ''
   }
 )
-let subMenu = ref()
-onMounted(()=>{
-  console.log(subMenu.value);
 
-})
 const { item, isNest, basePath } = toRefs(props)
 let onlyOneChild = ref<(RouteConfig & { noShowingChildren?: boolean }) | null>(
   null

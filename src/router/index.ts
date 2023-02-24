@@ -1,7 +1,6 @@
 import {
   createRouter as createVueRouter,
   createWebHashHistory,
-  createWebHistory,
   RouteRecordRaw
 } from 'vue-router'
 
@@ -137,14 +136,10 @@ const createRouter = () =>
     routes: constantRoutes as any
   })
 
-const router = createVueRouter({
-  scrollBehavior: () => ({ top: 0 }),
-  history: createWebHashHistory('vue3-typescript-admin-template'),
-  routes: constantRoutes as any
-})
+let router = createRouter()
 
 export function resetRouter() {
-  console.log(router.getRoutes());
+  router = createRouter()
 }
 
 export default router

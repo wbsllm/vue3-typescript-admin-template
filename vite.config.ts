@@ -15,7 +15,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 const ROOT = fileURLToPath(import.meta.url)
 const r = (p: string) => resolve(ROOT, '..', p)
 
-export default defineConfig({
+export default defineConfig(({ command, mode }) => ({
   base: '/vue3-typescript-admin-template',
   plugins: [
     vue(),
@@ -45,12 +45,12 @@ export default defineConfig({
     }),
     viteMockServe({
       ignore: /^\_/,
-      localEnabled: true,
-      prodEnabled: true,
+      localEnabled: command === 'serve',
+      prodEnabled: command === 'build',
       injectCode: `
-        import { setupMockServer } from '../mock/_mock-server';
-        setupMockServer();
-      `
+      import { setupMockServer } from '../mock/_mock-server';
+      setupMockServer();
+    `
     }),
     Icons()
   ],
@@ -63,4 +63,4 @@ export default defineConfig({
     ],
     extensions: ['.ts', '.tsx', '.js', '.vue']
   }
-})
+}))
