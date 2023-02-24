@@ -116,7 +116,6 @@ export const asyncRoutes: RouteConfig[] = [
   {
     path: '/icon',
     component: Layout,
-    meta: { title: 'Icons', icon: 'icon' },
     children: [
       {
         path: 'index',
