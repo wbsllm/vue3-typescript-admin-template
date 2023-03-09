@@ -6,6 +6,8 @@ import {
 
 /* Layout */
 import Layout from '@/layout/index.vue'
+import nestedRouter from './modules/nested'
+import chartsRouter from './modules/charts'
 
 export type RouteConfig = RouteRecordRaw & {
   path: string
@@ -75,12 +77,6 @@ export const constantRoutes: RouteConfig[] = [
     hidden: true
   },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import('@/views/test/index.vue'),
-    hidden: true
-  },
-  {
     path: '/404',
     name: '404',
     component: () => import('@/views/error-page/404.vue'),
@@ -105,6 +101,31 @@ export const constantRoutes: RouteConfig[] = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
+  },
+  {
+    path: '/documentation',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/documentation/index.vue'),
+        name: 'Documentation',
+        meta: { title: 'Documentation', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/guide',
+    component: Layout,
+    redirect: '/guide/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/guide/index.vue'),
+        name: 'Guide',
+        meta: { title: 'Guide', icon: 'guide', noCache: true }
+      }
+    ]
   }
 ]
 
@@ -114,6 +135,47 @@ export const constantRoutes: RouteConfig[] = [
  */
 export const asyncRoutes: RouteConfig[] = [
   {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/page',
+    alwaysShow: true, // will always show the root menu
+    name: 'Permission',
+    meta: {
+      title: 'Permission',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'page',
+        component: () => import('@/views/permission/page.vue'),
+        name: 'PagePermission',
+        meta: {
+          title: 'Page Permission',
+          roles: ['admin'] // or you can only set roles in sub nav
+        }
+      },
+      {
+        path: 'directive',
+        component: () => import('@/views/permission/directive.vue'),
+        name: 'DirectivePermission',
+        meta: {
+          title: 'Directive Permission'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/permission/role.vue'),
+        name: 'RolePermission',
+        meta: {
+          title: 'Role Permission',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+  {
     path: '/icon',
     component: Layout,
     children: [
@@ -122,6 +184,121 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/icons/index.vue'),
         name: 'Icons',
         meta: { title: 'Icons', icon: 'icon' }
+      }
+    ]
+  },
+  chartsRouter,
+  nestedRouter,
+  {
+    path: '/tab',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/tab/index.vue'),
+        name: 'Tab',
+        meta: { title: 'Tab', icon: 'tab' }
+      }
+    ]
+  },
+  {
+    path: '/error',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'ErrorPages',
+    meta: {
+      title: 'errorPages',
+      icon: '404'
+    },
+    children: [
+      {
+        path: '401',
+        component: () => import('@/views/error-page/401.vue'),
+        name: 'Page401',
+        meta: { title: 'Page 401', noCache: true }
+      },
+      {
+        path: '404',
+        component: () => import('@/views/error-page/404.vue'),
+        name: 'Page404',
+        meta: { title: 'Page 404', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/excel',
+    component: Layout,
+    redirect: '/excel/export-excel',
+    name: 'Excel',
+    meta: {
+      title: 'excel',
+      icon: 'excel'
+    },
+    children: [
+      {
+        path: 'export-excel',
+        component: () => import('@/views/excel/export-excel.vue'),
+        name: 'ExportExcel',
+        meta: { title: 'Export Excel' }
+      },
+      {
+        path: 'export-selected-excel',
+        component: () => import('@/views/excel/select-excel.vue'),
+        name: 'SelectExcel',
+        meta: { title: 'Select Excel' }
+      },
+      {
+        path: 'export-merge-header',
+        component: () => import('@/views/excel/merge-header.vue'),
+        name: 'MergeHeader',
+        meta: { title: 'Merge Header' }
+      },
+      {
+        path: 'upload-excel',
+        component: () => import('@/views/excel/upload-excel.vue'),
+        name: 'UploadExcel',
+        meta: { title: 'Upload Excel' }
+      }
+    ]
+  },
+  {
+    path: '/pdf',
+    component: Layout,
+    redirect: '/pdf/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/pdf/index.vue'),
+        name: 'PDF',
+        meta: { title: 'Pdf', icon: 'pdf' }
+      }
+    ]
+  },
+  {
+    path: '/pdf/download',
+    component: () => import('@/views/pdf/download.vue'),
+    hidden: true
+  },
+  {
+    path: '/clipboard',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/clipboard/index.vue'),
+        name: 'ClipboardDemo',
+        meta: { title: 'Clipboard Demo', icon: 'clipboard' }
+      }
+    ]
+  },
+  {
+    path: '/external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://github.com/PanJiaChen/vue-element-admin',
+        component: () => import('@/views/clipboard/index.vue'),
+        meta: { title: 'ExternalLink', icon: 'link' }
       }
     ]
   },

@@ -1,4 +1,5 @@
 import Clipboard from 'clipboard'
+import { ElMessage } from 'element-plus'
 
 function clipboardSuccess() {
   ElMessage.success({

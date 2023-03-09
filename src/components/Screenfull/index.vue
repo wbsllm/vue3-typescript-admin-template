@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElMessage } from 'element-plus';
 import screenfull from 'screenfull'
 let isFullscreen = ref(false)
 const change = () => {
